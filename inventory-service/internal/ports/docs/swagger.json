@@ -1,0 +1,234 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/inventory-service/api/v1/inventory/configurations": {
+            "get": {
+                "description": "Fetch all Inventory configurations",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "InventoryConfiguration"
+                ],
+                "summary": "Fetch all Inventory configurations",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.ResponseDto"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create new inventory configuration",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "InventoryConfiguration"
+                ],
+                "summary": "Create new inventory configuration",
+                "parameters": [
+                    {
+                        "description": "Create Inventory Configuration Request",
+                        "name": "requestBody",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request_dto.CreateNewConfigurationRequestBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.ResponseDto"
+                        }
+                    }
+                }
+            }
+        },
+        "/inventory-service/api/v1/inventory/configurations/{configurationName}": {
+            "delete": {
+                "description": "Create delete inventory configuration",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "InventoryConfiguration"
+                ],
+                "summary": "Create delete inventory configuration",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Configuration Name",
+                        "name": "configurationName",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.ResponseDto"
+                        }
+                    }
+                }
+            }
+        },
+        "/inventory-service/api/v1/inventory/configurations/{inventoryName}": {
+            "get": {
+                "description": "fetch inventory configuration",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "InventoryConfiguration"
+                ],
+                "summary": "Fetch Inventory Configuration",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Inventory Name",
+                        "name": "inventoryName",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.ResponseDto"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Add item to inventory",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Add item to inventory",
+                "parameters": [
+                    {
+                        "description": "Add item to inventory request",
+                        "name": "requestBody",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/bson.M"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Inventory Name",
+                        "name": "inventoryName",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.ResponseDto"
+                        }
+                    }
+                }
+            }
+        },
+        "/inventory-service/api/v1/{inventoryName}/inventory": {
+            "get": {
+                "description": "Get Inventory",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Get an item from inventory",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Inventory Name",
+                        "name": "inventoryName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "inventory Identifier Value",
+                        "name": "{inventory_identifier_key}",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.ResponseDto"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "bson.M": {
+            "type": "object",
+            "additionalProperties": true
+        },
+        "dto.ResponseDto": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "message": {
+                    "type": "string"
+                },
+                "status_code": {
+                    "type": "string"
+                }
+            }
+        },
+        "request_dto.CreateNewConfigurationRequestBody": {
+            "type": "object",
+            "required": [
+                "created_by",
+                "inventory_identifiers",
+                "inventory_name",
+                "json_schema"
+            ],
+            "properties": {
+                "created_by": {
+                    "type": "string"
+                },
+                "inventory_identifiers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "inventory_name": {
+                    "type": "string"
+                },
+                "json_schema": {
+                    "$ref": "#/definitions/bson.M"
+                }
+            }
+        }
+    }
+}

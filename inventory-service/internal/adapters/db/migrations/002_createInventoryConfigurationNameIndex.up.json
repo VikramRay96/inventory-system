@@ -1,0 +1,14 @@
+[
+  {
+    "createIndexes" : "InventoryConfiguration",
+    "indexes" : [
+      {
+        "key" : {
+          "inventory_name" : 1
+        },
+        "name" : "idx_inventory_name",
+        "unique" : true
+      }
+    ]
+  }
+]

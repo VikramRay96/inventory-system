@@ -1,0 +1,6 @@
+[
+  {
+    "dropIndexes" : "InventoryConfiguration",
+    "index" : "idx_inventory_name"
+  }
+]

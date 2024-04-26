@@ -1,0 +1,33 @@
+{
+  "name": "inventory-service",
+  "profiles": [
+    "staging"
+  ],
+  "label": "master",
+  "version": "1.0.3",
+  "state": null,
+  "propertySources": [
+    {
+      "source": {
+        "Environment": "staging",
+        "BaseUrl": "http://kod-staging-nlb-bde89fcd8b5f0c8c.elb.ap-south-1.amazonaws.com",
+        "server.port": ":8080",
+        "database.url": "mongodb+srv://%s:%s@%s/?tls=true&authMechanism=SCRAM-SHA-256&retrywrites=false&maxIdleTimeMS=12000",
+        "database.username": "kodadmin",
+        "database.password": "gC78hzpKzlA4rAEW",
+        "database.host": "kodstaging.mongocluster.cosmos.azure.com",
+        "database.name":"inventory-service",
+        "allowedOrigins": "*",
+        "log.file.path": "/var/log/",
+        "log.file.name": "inventory-service.log",
+        "S3BucketName": "staging-inventory-service",
+        "aws.region": "ap-south-1",
+        "log.file.maxsize": 10,
+        "log.file.maxbackup": 5,
+        "log.file.maxage": 30,
+        "MessagingQueueName": "inventory-service",
+        "log.level": 1
+      }
+    }
+  ]
+}

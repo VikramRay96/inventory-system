@@ -1,0 +1,11 @@
+version: '3'
+services:
+  inventory-service:
+    build:
+      context: .
+      dockerfile: inventory-service/Dockerfile
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    environment:
+      BOOT_CUR_ENV: dev

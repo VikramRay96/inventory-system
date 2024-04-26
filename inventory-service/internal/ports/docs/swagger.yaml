@@ -1,0 +1,154 @@
+definitions:
+  bson.M:
+    additionalProperties: true
+    type: object
+  dto.ResponseDto:
+    properties:
+      data: {}
+      message:
+        type: string
+      status_code:
+        type: string
+    type: object
+  request_dto.CreateNewConfigurationRequestBody:
+    properties:
+      created_by:
+        type: string
+      inventory_identifiers:
+        items:
+          type: string
+        type: array
+      inventory_name:
+        type: string
+      json_schema:
+        $ref: '#/definitions/bson.M'
+    required:
+    - created_by
+    - inventory_identifiers
+    - inventory_name
+    - json_schema
+    type: object
+info:
+  contact: {}
+paths:
+  /inventory-service/api/v1/{inventoryName}/inventory:
+    get:
+      description: Get Inventory
+      parameters:
+      - description: Inventory Name
+        in: path
+        name: inventoryName
+        required: true
+        type: string
+      - description: inventory Identifier Value
+        in: query
+        name: '{inventory_identifier_key}'
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ResponseDto'
+      summary: Get an item from inventory
+      tags:
+      - Inventory
+  /inventory-service/api/v1/inventory/configurations:
+    get:
+      description: Fetch all Inventory configurations
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ResponseDto'
+      summary: Fetch all Inventory configurations
+      tags:
+      - InventoryConfiguration
+    post:
+      consumes:
+      - application/json
+      description: Create new inventory configuration
+      parameters:
+      - description: Create Inventory Configuration Request
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/request_dto.CreateNewConfigurationRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ResponseDto'
+      summary: Create new inventory configuration
+      tags:
+      - InventoryConfiguration
+  /inventory-service/api/v1/inventory/configurations/{configurationName}:
+    delete:
+      description: Create delete inventory configuration
+      parameters:
+      - description: Configuration Name
+        in: path
+        name: configurationName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ResponseDto'
+      summary: Create delete inventory configuration
+      tags:
+      - InventoryConfiguration
+  /inventory-service/api/v1/inventory/configurations/{inventoryName}:
+    get:
+      description: fetch inventory configuration
+      parameters:
+      - description: Inventory Name
+        in: path
+        name: inventoryName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ResponseDto'
+      summary: Fetch Inventory Configuration
+      tags:
+      - InventoryConfiguration
+    post:
+      description: Add item to inventory
+      parameters:
+      - description: Add item to inventory request
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          $ref: '#/definitions/bson.M'
+      - description: Inventory Name
+        in: path
+        name: inventoryName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ResponseDto'
+      summary: Add item to inventory
+      tags:
+      - Inventory
+swagger: "2.0"
